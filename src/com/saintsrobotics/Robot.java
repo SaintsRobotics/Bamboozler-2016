@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.SampleRobot;
 
 public class Robot extends SampleRobot {
 
-    PickupSubsystem pickup = new PickupSubsystem();
-    DriveSubsystem drive = new DriveSubsystem();
     OI oi = new OI();
+    DriveSubsystem drive = new DriveSubsystem();
+    PickupSubsystem pickup = new PickupSubsystem();
 
     public Robot() {
 
