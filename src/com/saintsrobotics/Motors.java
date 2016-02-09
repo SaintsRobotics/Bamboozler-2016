@@ -9,7 +9,7 @@ public enum Motors {
 	DRIVE_LEFT_2(new Talon(1), false),
 	DRIVE_RIGHT_1(new Talon(2), false),
 	DRIVE_RIGHT_2(new Talon(3), false),
-	MOTOR_5(new Talon(4), false),
+	PICKUP(new Talon(4), false),
 	MOTOR_6(new Talon(5), false),
 	MOTOR_7(new Talon(6), false),
 	MOTOR_8(new Talon(7), false);
@@ -27,9 +27,5 @@ public enum Motors {
 	
 	public void set(double speed) {
 		motor.set(speed);
-	}
-	
-	public void set(double speed, byte syncGroup) {
-		motor.set(speed, syncGroup);
 	}
 }
