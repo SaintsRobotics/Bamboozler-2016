@@ -24,7 +24,9 @@ public class Robot extends SampleRobot {
     }
 
     public void operatorControl() {
-        drive.driveTank(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
-        pickup.rotate(oi.getAxis(OI.Axis.RT) - oi.getAxis(OI.Axis.LT));
+        while (isOperatorControl() && isEnabled()) {
+            drive.driveTank(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RY));
+//            pickup.rotate(oi.getAxis(OI.Axis.RT) - oi.getAxis(OI.Axis.LT));
+        }
     }
 }

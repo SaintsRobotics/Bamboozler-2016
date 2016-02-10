@@ -21,4 +21,8 @@ public class Sensor {
             return limitSwitch.get() ^ inverted;
         }
     }
+    
+    public enum Encoders {
+        
+    }
 }

@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
 public enum Motors {
-
-    DRIVE_LEFT_1(new Talon(0), false),
-    DRIVE_LEFT_2(new Talon(1), false),
-    DRIVE_RIGHT_1(new Talon(2), false),
-    DRIVE_RIGHT_2(new Talon(3), false),
+    
+    DRIVE_LEFT_1(new Talon(2), true),
+    DRIVE_LEFT_2(new Talon(3), true),
+    DRIVE_RIGHT_1(new Talon(0), false),
+    DRIVE_RIGHT_2(new Talon(1), false),
     PICKUP(new Talon(4), false),
     MOTOR_6(new Talon(5), false),
     MOTOR_7(new Talon(6), false),

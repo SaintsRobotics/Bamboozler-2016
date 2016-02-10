@@ -7,10 +7,10 @@ public class OI {
     public enum Axis {
         LX(0),
         LY(1),
-        RX(2),
-        RY(3),
-        LT(4),
-        RT(5);
+        LT(2),
+        RT(3),
+        RX(4),
+        RY(5);
 
         int rawIndex;
 
@@ -20,16 +20,16 @@ public class OI {
     }
 
     public enum Button {
-        A(0),
-        B(1),
-        X(2),
-        Y(3),
-        RB(4),
+        A(1),
+        B(2),
+        X(3),
+        Y(4),
         LB(5),
-        START(6),
+        RB(6),
         SELECT(7),
-        R3(8),
-        L3(9);
+        START(8),
+        L3(9),
+        R3(10);
 
         int rawIndex;
 
