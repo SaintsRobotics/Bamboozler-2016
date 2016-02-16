@@ -42,6 +42,7 @@ public class OI {
 
     public OI() {
         stick = new Joystick(0);
+        opStick = new Joystick(1);
     }
 
     public boolean getButton(Button button) {
@@ -51,4 +52,14 @@ public class OI {
     public double getAxis(Axis axis) {
         return stick.getRawAxis(axis.rawIndex);
     }
+    
+    private Joystick opStick;
+    public boolean getOpButton(Button button) {
+        return opStick.getRawButton(button.rawIndex);
+    }
+
+    public double getOpAxis(Axis axis) {
+        return opStick.getRawAxis(axis.rawIndex);
+    }
+
 }
