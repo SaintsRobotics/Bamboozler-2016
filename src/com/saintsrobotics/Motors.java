@@ -28,8 +28,10 @@ public enum Motors {
     public void set(double speed) {
         motor.set(speed);
     }
-    
-    public void stop() {
+    public void stop(){
     	motor.set(-motor.get());
+    }
+    public SpeedController getRawMotor(){
+    	return motor;
     }
 }
