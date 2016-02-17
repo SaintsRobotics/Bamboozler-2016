@@ -30,11 +30,10 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
             drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
-            arm.setArmThing(oi.getOpAxis(Axis.LY));
-            arm.setWinch(oi.getOpAxis(Axis.RY));
+            //arm.setArmThing(oi.getOpAxis(Axis.LY));
+            //arm.setWinch(oi.getOpAxis(Axis.RY));
             pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
         }
-        
     }
     public void test(){
     	LiveWindow.setEnabled(true);
