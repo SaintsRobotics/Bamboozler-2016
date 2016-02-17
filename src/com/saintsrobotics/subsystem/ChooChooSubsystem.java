@@ -6,16 +6,19 @@ import com.saintsrobotics.Motors;
 import com.saintsrobotics.Sensor;
 
 public class ChooChooSubsystem {
+	public static volatile boolean dirty = false;
 	public enum Stage {
 		UNWOUND,
 		PARTWOUND,
 		HAIRTRIGGER,
+		RUNNING
 	}
 	Timer timer = new Timer(true);
 	//This timertask is used to stop the choochooafter a given amount of time
 	TimerTask stop = new TimerTask(){
 		@Override
 		public void run(){
+			dirty = false;
 			Motors.CHOOCHOO.set(0);
 		}
 	};
@@ -30,12 +33,16 @@ public class ChooChooSubsystem {
 		public void run(){
 			if(Sensor.LimitSwitches.CHOOCHOO.get() == checkAgainst){
 				Motors.CHOOCHOO.set(0);
+				dirty = false;
 				this.cancel();
 			}
 		}
 	};
 	public Stage currentStage = Stage.UNWOUND;
 	public Stage brakakaka(){
+		//if it's already running, don't run something else
+		if(dirty) return Stage.RUNNING;
+		dirty = true;
 		if(currentStage == Stage.UNWOUND){
 			//Run the motor for a second, then stop
 			Motors.CHOOCHOO.set(1);
