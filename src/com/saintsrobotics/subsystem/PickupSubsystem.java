@@ -38,11 +38,5 @@ public class PickupSubsystem {
 			}
 		}
 		pid.setSetpoint(Sensor.Encoders.PICKUP.get() + speed * mult);
-		/*if(Sensor.Encoders.PICKUP.getRate() == 0) return;
-		if(speed/Sensor.Encoders.PICKUP.getRate()!=rate){
-			Robot.log("ratio = " + speed/Sensor.Encoders.PICKUP.getRate());
-			rate = speed/Sensor.Encoders.PICKUP.getRate();
-		}*/
-		
 	}
 }

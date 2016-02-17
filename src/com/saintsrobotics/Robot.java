@@ -7,6 +7,7 @@ import com.saintsrobotics.subsystem.PickupSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends SampleRobot {
 
@@ -14,7 +15,6 @@ public class Robot extends SampleRobot {
     DriveSubsystem drive = new DriveSubsystem();
     PickupSubsystem pickup = new PickupSubsystem(0.3);
     ArmSubsystem arm = new ArmSubsystem();
-    
     public Robot() {
 
     }
@@ -34,6 +34,11 @@ public class Robot extends SampleRobot {
             arm.setWinch(oi.getOpAxis(Axis.RY));
             pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
         }
+        
+    }
+    public void test(){
+    	LiveWindow.setEnabled(true);
+    	LiveWindow.addActuator("pickup", "Pickup PID Controller", pickup.pid);
     }
     public static void log(String message){
     	DriverStation.getInstance().reportError(message + "\n",false);

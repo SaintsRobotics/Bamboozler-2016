@@ -37,7 +37,8 @@ public class Sensor {
 	}
 	public enum LimitSwitches{
 		PICKUP(9),
-		ARM(8);
+		ARM(8),
+		CHOOCHOO(3);
 		DigitalInput limit;
 		LimitSwitches(int pin){
 			limit = new DigitalInput(pin);
