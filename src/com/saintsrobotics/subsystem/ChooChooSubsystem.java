@@ -12,22 +12,23 @@ public class ChooChooSubsystem {
 		HAIRTRIGGER,
 	}
 	Timer timer = new Timer(true);
+	//This timertask is used to stop the choochooafter a given amount of time
 	TimerTask stop = new TimerTask(){
 		@Override
 		public void run(){
 			Motors.CHOOCHOO.set(0);
 		}
 	};
+	//This timertask is used to stop the choochoo after the limit switch hits a certain value.
 	class checkSwitchStop extends TimerTask{
+		public checkSwitchStop(boolean stopVal){
+			super();
+			checkAgainst = stopVal;
+		}
 		boolean checkAgainst;
-		boolean firstRun = true;
 		@Override
 		public void run(){
-			if(firstRun){
-				checkAgainst = Sensor.LimitSwitches.CHOOCHOO.get();
-				return;
-			}
-			if(Sensor.LimitSwitches.CHOOCHOO.get() != checkAgainst){
+			if(Sensor.LimitSwitches.CHOOCHOO.get() == checkAgainst){
 				Motors.CHOOCHOO.set(0);
 				this.cancel();
 			}
@@ -36,14 +37,23 @@ public class ChooChooSubsystem {
 	public Stage currentStage = Stage.UNWOUND;
 	public Stage brakakaka(){
 		if(currentStage == Stage.UNWOUND){
+			//Run the motor for a second, then stop
+			Motors.CHOOCHOO.set(1);
 			timer.schedule(stop, 1000);
 			return currentStage = Stage.PARTWOUND;
 		}else if(currentStage== Stage.PARTWOUND){
-			timer.schedule(new checkSwitchStop(), 10,50);
+			//Stop the motor when the switch returns true
+			Motors.CHOOCHOO.set(1);
+			timer.schedule(new checkSwitchStop(true), 10,50);
 			return currentStage = Stage.HAIRTRIGGER;
 		}else if (currentStage == Stage.HAIRTRIGGER){
-			timer.schedule(new checkSwitchStop(), 0,50);
+			//Stop the motor when the switch returns false
+			Motors.CHOOCHOO.set(1);
+			timer.schedule(new checkSwitchStop(false), 0,50);
 			return currentStage = Stage.UNWOUND;
+		}else{
+			//I'm not sure how you would get here, but here you are
+			return null;
 		}
 	}
 }

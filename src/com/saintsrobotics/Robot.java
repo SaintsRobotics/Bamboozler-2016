@@ -21,6 +21,9 @@ public class Robot extends SampleRobot {
 
     public void robotInit() {
     	drive.multiplier = 1;
+    	//Use the livewindow for PID tuning
+    	LiveWindow.addActuator("pickup", "Pickup PID Controller", pickup.pid);
+
     }
 
     public void autonomous() {
@@ -28,16 +31,19 @@ public class Robot extends SampleRobot {
     }
 
     public void operatorControl() {
+    	Robot.log("hit Teleop");
         while (isOperatorControl() && isEnabled()) {
-            drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
+            //drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
             //arm.setArmThing(oi.getOpAxis(Axis.LY));
             //arm.setWinch(oi.getOpAxis(Axis.RY));
-            pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
+            //pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
         }
     }
     public void test(){
+    	log("Hit Test");
     	LiveWindow.setEnabled(true);
-    	LiveWindow.addActuator("pickup", "Pickup PID Controller", pickup.pid);
+    	while(isTest()&&isEnabled())
+    		LiveWindow.run();
     }
     public static void log(String message){
     	DriverStation.getInstance().reportError(message + "\n",false);

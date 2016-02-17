@@ -18,7 +18,8 @@ public class PickupSubsystem {
 	public PickupSubsystem(double mult){
 		this.mult = mult;
 		this.set = false;
-		this.pid = new PIDController(1d, 0d, 0d, Sensor.Encoders.PICKUP.getRawEncoder(), Motors.PICKUP.getRawMotor());
+		this.pid = new PIDController(1d, 0d, 0d, 0d, Sensor.Encoders.PICKUP.getRawEncoder(), Motors.PICKUP.getRawMotor());
+		this.pid.setAbsoluteTolerance(0.05);
 	}
 	
 	public void rotate(double speed) {
@@ -37,6 +38,6 @@ public class PickupSubsystem {
 				set = true;
 			}
 		}
-		pid.setSetpoint(Sensor.Encoders.PICKUP.get() + speed * mult);
+		pid.setSetpoint(speed * mult);
 	}
 }
