@@ -14,10 +14,6 @@ public class Robot extends SampleRobot {
     DriveSubsystem drive = new DriveSubsystem();
     PickupSubsystem pickup = new PickupSubsystem(0.3);
     ArmSubsystem arm = new ArmSubsystem();
-    
-    public Robot() {
-
-    }
 
     public void robotInit() {
     	drive.multiplier = 1;
@@ -29,13 +25,14 @@ public class Robot extends SampleRobot {
 
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
-            drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
-            arm.setArmThing(oi.getOpAxis(Axis.LY));
-            arm.setWinch(oi.getOpAxis(Axis.RY));
-            pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
+//            drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
+            arm.setArmThing(oi.getAxis(Axis.RY) * 0.3);
+            arm.setWinch(oi.getAxis(Axis.LY) * 0.3);
+//            pickup.rotate(oi.getAxis(Axis.RY));
         }
     }
-    public static void log(String message){
-    	DriverStation.getInstance().reportError(message + "\n",false);
+    
+    public static void log(String message) {
+        DriverStation.reportError(message + "\n", false);
     }
 }

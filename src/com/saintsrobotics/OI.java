@@ -39,10 +39,11 @@ public class OI {
     }
 
     private Joystick stick;
+    private Joystick controlBoard;
 
     public OI() {
         stick = new Joystick(0);
-        opStick = new Joystick(1);
+        controlBoard = new Joystick(1);
     }
 
     public boolean getButton(Button button) {
@@ -53,13 +54,12 @@ public class OI {
         return stick.getRawAxis(axis.rawIndex);
     }
     
-    private Joystick opStick;
-    public boolean getOpButton(Button button) {
-        return opStick.getRawButton(button.rawIndex);
+    public double getThetaOne() {
+        return controlBoard.getRawAxis(1);
     }
 
-    public double getOpAxis(Axis axis) {
-        return opStick.getRawAxis(axis.rawIndex);
+    public double getThetaTwo() {
+        return controlBoard.getRawAxis(2);
     }
 
 }
