@@ -12,7 +12,7 @@ public enum Motors {
     PICKUP(new Talon(5), false),
     ARM_AXLE(new Talon(7), false),
     ARM_WINCH(new Talon(6), false),
-    CHOOCHOO(new Talon(4), false);
+    CHOOCHOO(new Talon(4), true);
 
     private SpeedController motor;
 

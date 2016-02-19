@@ -1,12 +1,18 @@
 package com.saintsrobotics;
 
 import com.saintsrobotics.OI.Axis;
+import com.saintsrobotics.OI.Button;
 import com.saintsrobotics.subsystem.*;
-
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.IRemote;
+import edu.wpi.first.wpilibj.tables.IRemoteConnectionListener;
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
 
 public class Robot extends SampleRobot {
 
@@ -22,8 +28,9 @@ public class Robot extends SampleRobot {
     public void robotInit() {
     	drive.multiplier = 1;
     	//Use the livewindow for PID tuning
-    	LiveWindow.addActuator("pickup", "Pickup PID Controller", pickup.pid);
 
+    	SmartDashboard.putData("Arm Pid", arm.armPid);
+    	SmartDashboard.putData("Winch Pid", arm.winchPid);
     }
 
     public void autonomous() {
@@ -33,22 +40,62 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
     	Robot.log("hit Teleop");
         while (isOperatorControl() && isEnabled()) {
-            drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
-            arm.setArmThing(oi.getOpAxis(Axis.LY));
-            arm.setWinch(oi.getOpAxis(Axis.RY));
-            pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
-        	if(oi.getButton(OI.Button.A)){
+            //drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
+            //arm.setArmThing(oi.getOpAxis(Axis.LY));
+            //arm.setWinch(oi.getOpAxis(Axis.RY));
+            //pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
+        	/*if(oi.getButton(OI.Button.A)){
         		//Run chochoo, output current state. replace log call with something more elegant later.
         		log(choochoo.brakakaka().toString());
-        	}
-        	
+        		
+        	}else{
+        		
+        	}*/
+        	arm.setArmThing(oi.getAxis(Axis.LY));
+        	arm.setWinch(oi.getAxis(Axis.RY));
         }
     }
     public void test(){
+    	NetworkTable test = NetworkTable.getTable("kids/test");
+    	
+    	test.addConnectionListener(new IRemoteConnectionListener(){
+
+			@Override
+			public void connected(IRemote arg0) {
+				// TODO Auto-generated method stub
+				log("connected");
+			}
+
+			@Override
+			public void disconnected(IRemote arg0) {
+				// TODO Auto-generated method stub
+				log("disconnected");
+			}
+			
+		}, true);
+
     	log("Hit Test");
-    	LiveWindow.setEnabled(true);
-    	while(isTest()&&isEnabled())
-    		LiveWindow.run();
+    	log("Is server: " + test.isServer());
+    	//LiveWindow.addActuator("PID", "pickupPid", pickup.pid);
+    	
+    	//LiveWindow.addSensor("Arms", "arm", Sensor.Potentiometer.ARM.getRawPot());
+    	//LiveWindow.addSensor("Arms", "winch", Sensor.Potentiometer.WINCH.getRawPot());
+    	LiveWindow.setEnabled(false);
+    	while(isTest()&&isEnabled()){
+    		log("ayyy");
+    		SmartDashboard.putData("Arm Pid", arm.armPid);
+        	SmartDashboard.putData("Winch Pid", arm.winchPid);
+        	
+    		//pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
+    		//log("Current Distance: " + arm.calculateDistance());
+    		
+    		/*if(oi.getButton(Button.A)){
+    			test.putString("kids", "hey");
+    			log("put");
+    		}if(oi.getButton(Button.B)){
+    			log(test.getString("kids", "null"));
+    		}*/
+    	}
     }
     public static void log(String message){
 		DriverStation.reportError(message + "\n",false);

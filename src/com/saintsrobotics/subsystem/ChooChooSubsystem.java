@@ -15,7 +15,7 @@ public class ChooChooSubsystem {
 	}
 	Timer timer = new Timer(true);
 	//This timertask is used to stop the choochooafter a given amount of time
-	TimerTask stop = new TimerTask(){
+	class stop extends TimerTask{
 		@Override
 		public void run(){
 			dirty = false;
@@ -24,43 +24,44 @@ public class ChooChooSubsystem {
 	};
 	//This timertask is used to stop the choochoo after the limit switch hits a certain value.
 	class checkSwitchStop extends TimerTask{
-		public checkSwitchStop(boolean stopVal){
+		public checkSwitchStop(){
 			super();
-			checkAgainst = stopVal;
+			checkAgainst = Sensor.LimitSwitches.CHOOCHOO.get();
 		}
 		boolean checkAgainst;
+		boolean tripped = false;
 		@Override
 		public void run(){
-			if(Sensor.LimitSwitches.CHOOCHOO.get() == checkAgainst){
+			if(Sensor.LimitSwitches.CHOOCHOO.get() != checkAgainst){
+				tripped = true;
+			}
+			if(tripped && Sensor.LimitSwitches.CHOOCHOO.get() == checkAgainst){
 				Motors.CHOOCHOO.set(0);
 				dirty = false;
 				this.cancel();
 			}
 		}
 	};
+	
 	public Stage currentStage = Stage.UNWOUND;
+	public void backDrive(){
+		Motors.CHOOCHOO.set(1);
+	}
+	public void stop(){
+		Motors.CHOOCHOO.set(0);
+	}
 	public Stage brakakaka(){
 		//if it's already running, don't run something else
 		if(dirty) return Stage.RUNNING;
 		dirty = true;
-		if(currentStage == Stage.UNWOUND){
-			//Run the motor for a second, then stop
-			Motors.CHOOCHOO.set(1);
-			timer.schedule(stop, 1000);
-			return currentStage = Stage.PARTWOUND;
-		}else if(currentStage== Stage.PARTWOUND){
-			//Stop the motor when the switch returns true
-			Motors.CHOOCHOO.set(1);
-			timer.schedule(new checkSwitchStop(true), 10,50);
-			return currentStage = Stage.HAIRTRIGGER;
-		}else if (currentStage == Stage.HAIRTRIGGER){
-			//Stop the motor when the switch returns false
-			Motors.CHOOCHOO.set(1);
-			timer.schedule(new checkSwitchStop(false), 0,50);
-			return currentStage = Stage.UNWOUND;
+		Motors.CHOOCHOO.set(0.1);
+		if(currentStage == Stage.PARTWOUND){
+			timer.schedule(new checkSwitchStop(), 0, 50);
+			currentStage = Stage.UNWOUND;
 		}else{
-			//I'm not sure how you would get here, but here you are
-			return null;
+			timer.schedule(new stop(), 700);
+			currentStage = Stage.PARTWOUND;
 		}
+		return currentStage;
 	}
 }
