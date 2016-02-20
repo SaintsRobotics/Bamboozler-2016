@@ -45,7 +45,7 @@ public class ChooChooSubsystem {
 	
 	public Stage currentStage = Stage.UNWOUND;
 	public void backDrive(){
-		Motors.CHOOCHOO.set(1);
+		Motors.CHOOCHOO.set(0.1);
 	}
 	public void stop(){
 		Motors.CHOOCHOO.set(0);
@@ -54,7 +54,10 @@ public class ChooChooSubsystem {
 		//if it's already running, don't run something else
 		if(dirty) return Stage.RUNNING;
 		dirty = true;
-		Motors.CHOOCHOO.set(0.1);
+		Motors.CHOOCHOO.set(1);
+		timer.schedule(new stop(), 700);
+		return Stage.RUNNING;
+		/*Motors.CHOOCHOO.set(1);
 		if(currentStage == Stage.PARTWOUND){
 			timer.schedule(new checkSwitchStop(), 0, 50);
 			currentStage = Stage.UNWOUND;
@@ -62,6 +65,6 @@ public class ChooChooSubsystem {
 			timer.schedule(new stop(), 700);
 			currentStage = Stage.PARTWOUND;
 		}
-		return currentStage;
+		return currentStage;*/
 	}
 }

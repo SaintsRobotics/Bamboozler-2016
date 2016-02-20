@@ -37,19 +37,19 @@ public class Sensor {
 		}
 	}
 	public enum Potentiometer{
-		WINCH(0,6.283,-3.84),
-		ARM(1,6.283,-0.098);
+		ARM(0,6.283,-0.52),
+		WINCH(1,6.283,-0.138);
 		AnalogPotentiometer pot;
 		Potentiometer(int port,double fullrange, double offset){
 			pot = new AnalogPotentiometer(port,fullrange,offset);
 		}
 		public double get(){
-			
 			return pot.get();
 		}
 		public AnalogPotentiometer getRawPot(){
 			return pot;
 		}
+		
 	}
 	public enum LimitSwitches{
 		PICKUP(9),

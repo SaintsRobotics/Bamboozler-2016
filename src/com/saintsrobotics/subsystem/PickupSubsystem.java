@@ -18,19 +18,18 @@ public class PickupSubsystem {
 	public PickupSubsystem(double mult){
 		this.mult = mult;
 		this.set = false;
-		this.pid = new PIDController(1d, 0d, 0d, 0d, Sensor.Encoders.PICKUP.getRawEncoder(), Motors.PICKUP.getRawMotor());
-		this.pid.setAbsoluteTolerance(0.05);
+		this.pid = new PIDController(0.6d, 0.05d, 0d, Sensor.Encoders.PICKUP.getRawEncoder(), Motors.PICKUP.getRawMotor());
+		this.pid.setAbsoluteTolerance(0.5);
 	}
-	
-	public void rotate(double speed) {
+	public void set(double speed){
+		
+		speed*=5;
 		if(set){
-			if (speed > 0d && Sensor.Encoders.PICKUP.get() > -60d) {
-				pid.setSetpoint(0);
-				return;
-			} else if (speed < 0d && Sensor.Encoders.PICKUP.get() < -290d /*found by trial and error*/) {
+			if (speed > 0d) {
 				pid.setSetpoint(0);
 				return;
 			}
+			pid.setSetpoint(speed);
 		}else{
 			if(Sensor.LimitSwitches.PICKUP.get()){
 				Sensor.Encoders.PICKUP.zero();
@@ -38,6 +37,11 @@ public class PickupSubsystem {
 				set = true;
 			}
 		}
-		pid.setSetpoint(speed * mult);
+	}
+	public void dangerousSet(double set){
+		pid.setSetpoint(set* 8);
+	}
+	public void rotate(double speed) {
+		Motors.PICKUP.set(speed);
 	}
 }

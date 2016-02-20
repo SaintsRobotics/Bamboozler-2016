@@ -10,7 +10,7 @@ public enum Motors {
     DRIVE_RIGHT_1(new Talon(0), false),
     DRIVE_RIGHT_2(new Talon(1), false),
     PICKUP(new Talon(5), false),
-    ARM_AXLE(new Talon(7), false),
+    ARM_AXLE(new Talon(7), true),
     ARM_WINCH(new Talon(6), false),
     CHOOCHOO(new Talon(4), true);
 

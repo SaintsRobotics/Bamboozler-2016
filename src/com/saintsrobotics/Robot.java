@@ -3,6 +3,7 @@ package com.saintsrobotics;
 import com.saintsrobotics.OI.Axis;
 import com.saintsrobotics.OI.Button;
 import com.saintsrobotics.subsystem.*;
+import com.saintsrobotics.subsystem.ChooChooSubsystem.Stage;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -44,21 +45,26 @@ public class Robot extends SampleRobot {
             //arm.setArmThing(oi.getOpAxis(Axis.LY));
             //arm.setWinch(oi.getOpAxis(Axis.RY));
             //pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
-        	/*if(oi.getButton(OI.Button.A)){
+        	if(oi.getButton(OI.Button.A)){
         		//Run chochoo, output current state. replace log call with something more elegant later.
-        		log(choochoo.brakakaka().toString());
-        		
+        		Stage s = choochoo.brakakaka();
+        		if(s!=Stage.RUNNING){
+        			log(s.toString());
+        		}
         	}else{
         		
-        	}*/
-        	arm.setArmThing(oi.getAxis(Axis.LY));
-        	arm.setWinch(oi.getAxis(Axis.RY));
+        	}
+        	if(oi.getButton(OI.Button.B)){
+        		log("Current Motor Speed :" + Motors.CHOOCHOO.get());
+        	}
+        	//arm.setArmThing(oi.getAxis(Axis.LY));
+        	//arm.setWinch(oi.getAxis(Axis.RY));
         }
     }
     public void test(){
-    	NetworkTable test = NetworkTable.getTable("kids/test");
+    	NetworkTable table = NetworkTable.getTable("pidtune");
     	
-    	test.addConnectionListener(new IRemoteConnectionListener(){
+    	table.addConnectionListener(new IRemoteConnectionListener(){
 
 			@Override
 			public void connected(IRemote arg0) {
@@ -75,26 +81,31 @@ public class Robot extends SampleRobot {
 		}, true);
 
     	log("Hit Test");
-    	log("Is server: " + test.isServer());
+    	log("Is server: " + table.isServer());
     	//LiveWindow.addActuator("PID", "pickupPid", pickup.pid);
     	
     	//LiveWindow.addSensor("Arms", "arm", Sensor.Potentiometer.ARM.getRawPot());
     	//LiveWindow.addSensor("Arms", "winch", Sensor.Potentiometer.WINCH.getRawPot());
     	LiveWindow.setEnabled(false);
-    	while(isTest()&&isEnabled()){
-    		log("ayyy");
-    		SmartDashboard.putData("Arm Pid", arm.armPid);
-        	SmartDashboard.putData("Winch Pid", arm.winchPid);
-        	
-    		//pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
+    	if(isTest()&&isEnabled()){
+    		pickup.pid.disable();
+    		arm.armPid.disable();
+    		arm.winchPid.disable();
+    		arm.setArmThing(0);
+    		arm.setWinch(1);
+    		choochoo.backDrive();
+    		//log("Arm Pos: " + Sensor.Potentiometer.ARM.get());
+    		//log("Winch Pos: " + Sensor.Potentiometer.WINCH.get());
     		//log("Current Distance: " + arm.calculateDistance());
+    	}
+    	while(isTest()&&isEnabled()){
+    		//pickup.dangerousSet(oi.getAxis(Axis.LY));
+    		//arm.setArmThing(oi.getAxis(Axis.LY));
+    		//arm.setWinch(oi.getAxis(Axis.RY));
     		
-    		/*if(oi.getButton(Button.A)){
-    			test.putString("kids", "hey");
-    			log("put");
-    		}if(oi.getButton(Button.B)){
-    			log(test.getString("kids", "null"));
-    		}*/
+    		log("Setpoint: " + arm.winchPid.getSetpoint());
+    		log("Current Output: " + arm.winchPid.get());
+    		log("Current Encoder Value: " + Sensor.Potentiometer.WINCH.get());
     	}
     }
     public static void log(String message){
