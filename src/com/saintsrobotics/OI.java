@@ -10,7 +10,11 @@ public class OI {
         LT(2),
         RT(3),
         RX(4),
-        RY(5);
+        RY(5),
+        ARM(0),
+        ELBOW(1),
+        CONTROL_BOARD_KNOB(2),
+        LOGITECH_KNOB(2);
 
         int rawIndex;
 
@@ -38,28 +42,34 @@ public class OI {
         }
     }
 
-    private Joystick stick;
+    private Joystick driveStick;
+    private Joystick controlBoard;
+    private Joystick operatorStick; // we'll likely get rid of this
 
     public OI() {
-        stick = new Joystick(0);
-        opStick = new Joystick(1);
+        driveStick = new Joystick(0);
+        controlBoard = new Joystick(1);
+        operatorStick = new Joystick(2);
     }
 
-    public boolean getButton(Button button) {
-        return stick.getRawButton(button.rawIndex);
+    public boolean getDrive(Button button) {
+        return driveStick.getRawButton(button.rawIndex);
     }
 
-    public double getAxis(Axis axis) {
-        return stick.getRawAxis(axis.rawIndex);
+    public double getDrive(Axis axis) {
+        return driveStick.getRawAxis(axis.rawIndex);
     }
     
-    private Joystick opStick;
-    public boolean getOpButton(Button button) {
-        return opStick.getRawButton(button.rawIndex);
+    public double getControlBoard(Axis axis) {
+        return (controlBoard.getRawAxis(axis.rawIndex)+1)/2*270;
     }
 
-    public double getOpAxis(Axis axis) {
-        return opStick.getRawAxis(axis.rawIndex);
+    public boolean getOperator(Button button) {
+        return operatorStick.getRawButton(button.rawIndex);
+    }
+
+    public double getOperator(Axis axis) {
+        return operatorStick.getRawAxis(axis.rawIndex);
     }
 
 }

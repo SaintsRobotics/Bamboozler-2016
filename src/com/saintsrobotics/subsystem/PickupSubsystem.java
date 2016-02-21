@@ -1,47 +1,35 @@
 package com.saintsrobotics.subsystem;
 
 import com.saintsrobotics.Motors;
-import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
-
-import edu.wpi.first.wpilibj.PIDController;
+import com.saintsrobotics.util.PID;
 
 public class PickupSubsystem {
-	
-	public double mult;
-	public boolean set = false;
-	public double rate = 0;
-	public PIDController pid;
-	public PickupSubsystem (){
-		this(1);
-	}
-	public PickupSubsystem(double mult){
-		this.mult = mult;
-		this.set = false;
-		this.pid = new PIDController(0.6d, 0.05d, 0d, Sensor.Encoders.PICKUP.getRawEncoder(), Motors.PICKUP.getRawMotor());
-		this.pid.setAbsoluteTolerance(0.5);
-	}
-	public void set(double speed){
-		
-		speed*=5;
-		if(set){
-			if (speed > 0d) {
-				pid.setSetpoint(0);
-				return;
-			}
-			pid.setSetpoint(speed);
-		}else{
-			if(Sensor.LimitSwitches.PICKUP.get()){
-				Sensor.Encoders.PICKUP.zero();
-				Robot.log("set");
-				set = true;
-			}
-		}
-	}
-	public void dangerousSet(double set){
-		pid.setSetpoint(set* 8);
-	}
-	public void rotate(double speed) {
-		Motors.PICKUP.set(speed);
-	}
+
+    // if the pickup has gone all the way up into the limit switch to zero the encoder
+    private boolean set = true;
+    private PID pickupPid = new PID(80, 0, 0);
+
+    public PickupSubsystem() {
+        this.set = false;
+    }
+    
+    // Encoder: 0 -> 10.2, full up -> full down
+    public void set(double pos) {
+        if (Sensor.LimitSwitches.PICKUP.get()) {
+            Sensor.Encoders.PICKUP.zero();
+            set = true;
+        }
+        if (set) {
+            double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/10.2, pos);
+            Motors.PICKUP.set(val);
+        } else {
+            Motors.PICKUP.set(0.1);
+        }
+    }
+    
+    // makes the pickup go up and zero the encoder
+    public void zero() {
+        set = false;
+    }
 }
