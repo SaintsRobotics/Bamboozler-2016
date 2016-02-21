@@ -41,24 +41,7 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
     	Robot.log("hit Teleop");
         while (isOperatorControl() && isEnabled()) {
-            //drive.driveArcade(oi.getAxis(OI.Axis.LY), oi.getAxis(OI.Axis.RX));
-            //arm.setArmThing(oi.getOpAxis(Axis.LY));
-            //arm.setWinch(oi.getOpAxis(Axis.RY));
-            //pickup.rotate(oi.getAxis(Axis.LT) - oi.getAxis(Axis.RT));
-        	if(oi.getButton(OI.Button.A)){
-        		//Run chochoo, output current state. replace log call with something more elegant later.
-        		Stage s = choochoo.brakakaka();
-        		if(s!=Stage.RUNNING){
-        			log(s.toString());
-        		}
-        	}else{
-        		
-        	}
-        	if(oi.getButton(OI.Button.B)){
-        		log("Current Motor Speed :" + Motors.CHOOCHOO.get());
-        	}
-        	//arm.setArmThing(oi.getAxis(Axis.LY));
-        	//arm.setWinch(oi.getAxis(Axis.RY));
+            drive.driveArcade(oi.getAxis(Axis.LY), oi.getAxis(Axis.RX));
         }
     }
     public void test(){
