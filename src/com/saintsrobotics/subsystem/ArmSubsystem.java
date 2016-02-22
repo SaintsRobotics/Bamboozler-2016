@@ -1,13 +1,14 @@
 package com.saintsrobotics.subsystem;
 
 import com.saintsrobotics.Motors;
+import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
 import com.saintsrobotics.util.PID;
 
 
 public class ArmSubsystem {
 
-    public PID elbowPid = new PID(1f/270*486, 0, 0);
+    public PID elbowPid = new PID(1f/270*64, 0, 0);
     public PID armPid = new PID(1f/270*8, 0, 0); //0.04
     
     int cnt;
@@ -21,8 +22,8 @@ public class ArmSubsystem {
         Motors.ARM_AXLE.set(armVal);
         Motors.ARM_WINCH.set(elbowVal);
         
-//        if (cnt++ % 100 == 0) {
-//            Robot.log(armVal + " " + Sensor.Potentiometer.ARM.get() + " " + armPos);
-//        }
+        if (cnt++ % 400 == 0) {
+            Robot.log(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
+        }
     }
 }

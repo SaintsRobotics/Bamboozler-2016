@@ -16,18 +16,23 @@ public class Robot extends SampleRobot {
     PickupSubsystem pickup = new PickupSubsystem();
     ArmSubsystem arm = new ArmSubsystem();
     ChooChooSubsystem choochoo = new ChooChooSubsystem();
+    
+    int cnt = 0;
 
     public void operatorControl() {
         pickup.zero();
         while (isOperatorControl() && isEnabled()) {
             drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
-            choochoo.wind();
-            arm.set(oi.getControlBoard(Axis.ARM) - 10.546875, oi.getControlBoard(Axis.ELBOW) - 4.21875);
+//            choochoo.wind();
+//            arm.set(oi.getControlBoard(Axis.ARM) - 10.546875, oi.getControlBoard(Axis.ELBOW) - 4.21875);
 
-            // this one needs to be updated with control board knob
-            // pickup.set(-(oi.getAxis(Axis.LOGITECH_KNOB)+1)/2);
+            // 
+            
+//            if (cnt++ % 100 == 0) log("" + oi.getControlBoard(Axis.CONTROL_BOARD_KNOB));
+            // input change 0 -> 180 to 0 -> -1
+//             pickup.set(-oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
 
-            if (oi.getOperator(OI.Button.A)) choochoo.brakakaka();
+//            if (oi.getOperator(OI.Button.A)) choochoo.brakakaka();
             // ability to manually zero arms would be nice
         }
     }
