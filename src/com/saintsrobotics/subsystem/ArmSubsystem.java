@@ -13,8 +13,7 @@ public class ArmSubsystem {
     
     int cnt;
 
-    public void set(double armPos, double elbowPos) {
-        armPos = Math.max(armPos, 0);
+public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);
         
         double armVal = armPid.compute(Sensor.Potentiometer.ARM.get(), armPos);

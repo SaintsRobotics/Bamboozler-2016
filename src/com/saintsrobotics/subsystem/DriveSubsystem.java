@@ -23,7 +23,7 @@ public class DriveSubsystem {
     public void driveArcade(double speed, double turn) {
         speed *= multiplier;
         turn *= turnMultiplier;
-        drive(speed - turn, speed + turn);
+        drive(speed + turn, speed - turn);
     }
 
     public void drive(double left, double right) {

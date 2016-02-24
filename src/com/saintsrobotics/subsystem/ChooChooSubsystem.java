@@ -22,7 +22,7 @@ public class ChooChooSubsystem {
         }
     }
 
-    public void brakakaka() {
+    public void fire() {
         if (Sensor.LimitSwitches.CHOOCHOO.get() && !firing) {
             firing = true;
             timer.start();
