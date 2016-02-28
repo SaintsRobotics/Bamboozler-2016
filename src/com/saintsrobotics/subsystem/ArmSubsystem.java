@@ -21,7 +21,7 @@ public void set(double armPos, double elbowPos) {
         Motors.ARM_AXLE.set(armVal);
         Motors.ARM_WINCH.set(elbowVal);
         
-        if (cnt++ % 400 == 0) {
+        if (Robot.debug && cnt++ % 400 == 0) {
             Robot.log(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
         }
     }

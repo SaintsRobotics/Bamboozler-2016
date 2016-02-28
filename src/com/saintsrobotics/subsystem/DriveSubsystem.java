@@ -3,7 +3,7 @@ package com.saintsrobotics.subsystem;
 import com.saintsrobotics.Motors;
 
 public class DriveSubsystem {
-
+	//Base speed multiplier
     public double multiplier = 1;
     public double turnMultiplier = 1;
 
@@ -25,8 +25,10 @@ public class DriveSubsystem {
         turn *= turnMultiplier;
         drive(speed + turn, speed - turn);
     }
-
-    public void drive(double left, double right) {
+    public void driveTank(double left, double right){
+    	drive(multiplier * left, multiplier * right);
+    }
+    private void drive(double left, double right) {
         Motors.DRIVE_LEFT_1.set(left);
         Motors.DRIVE_LEFT_2.set(left);
         Motors.DRIVE_RIGHT_1.set(right);

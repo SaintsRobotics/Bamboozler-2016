@@ -14,8 +14,8 @@ public class Sensor {
 
         private Encoder encoder;
 
-        Encoders(int pin, boolean inverted, int pulsePerRev, int gearBoxRate, double minRate) {
-            this(pin, inverted, pulsePerRev * gearBoxRate, minRate);
+        Encoders(int pin, boolean inverted, int pulsesPerRev, int gearBoxRate, double minRate) {
+            this(pin, inverted, pulsesPerRev * gearBoxRate, minRate);
         }
 
         Encoders(int pin, boolean inverted, double distancePerPulse, double minRate) {

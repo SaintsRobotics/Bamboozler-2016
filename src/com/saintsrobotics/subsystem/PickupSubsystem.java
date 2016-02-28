@@ -8,25 +8,24 @@ import com.saintsrobotics.util.PID;
 public class PickupSubsystem {
 
     // if the pickup has gone all the way up into the limit switch to zero the encoder
-    private boolean set = true;
+    private boolean set;
     private PID pickupPid = new PID(20, 0, 0);
     
     int cnt;
 
-    public PickupSubsystem() {
-        this.set = false;
-    }
     
-    // Encoder: 0 -> 10.2, full up -> full down
+    // Encoder: 0 -> -10.2, full up -> full down
     public void set(double pos) {
         if (Sensor.LimitSwitches.PICKUP.get()) {
             Sensor.Encoders.PICKUP.zero();
             set = true;
         }
+        if(pos < 0) pos = 0; else if (pos > 1) pos = 1;
         if (set) {
-            double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/10.2, pos);
-            Motors.PICKUP.set(val);
-            if (cnt++ % 100 == 0) Robot.log("[ " + ((int)(val*1000))/1000d
+            double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/10.2, -pos);
+            
+            Motors.PICKUP.set(-val);
+            if (Robot.debug && cnt++ % 100 == 0) Robot.log("[ " + ((int)(val*1000))/1000d
             		+ " " + Sensor.Encoders.PICKUP.get()
             		+ " " + (int)(pos*1000)/1000d);
         } else {
