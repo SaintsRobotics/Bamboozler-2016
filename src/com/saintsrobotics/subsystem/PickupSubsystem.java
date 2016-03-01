@@ -24,12 +24,14 @@ public class PickupSubsystem {
         if (set) {
             double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/10.2, -pos);
             
-            Motors.PICKUP.set(-val);
-            if (Robot.debug && cnt++ % 100 == 0) Robot.log("[ " + ((int)(val*1000))/1000d
+            
+            if (Robot.debug && cnt++ % 10000 == 0) Robot.log("[ " + ((int)(val*1000))/1000d
             		+ " " + Sensor.Encoders.PICKUP.get()
             		+ " " + (int)(pos*1000)/1000d);
+            else
+            	Motors.PICKUP.set(val);
         } else {
-            Motors.PICKUP.set(0.1);
+            Motors.PICKUP.set(0.3);
         }
     }
     

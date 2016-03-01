@@ -30,8 +30,8 @@ public class DriveSubsystem {
     }
     private void drive(double left, double right) {
         Motors.DRIVE_LEFT_1.set(left);
-        Motors.DRIVE_LEFT_2.set(left);
-        Motors.DRIVE_RIGHT_1.set(right);
+        Motors.DRIVE_LEFT_2.set(right);
+        Motors.DRIVE_RIGHT_1.set(left);
         Motors.DRIVE_RIGHT_2.set(right);
     }
 }

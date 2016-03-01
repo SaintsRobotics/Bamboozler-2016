@@ -10,10 +10,12 @@ public class ChooChooSubsystem {
     private Timer timer = new Timer();
     //Are we firing? this variable tells us. If it isn't lying.
     private boolean firing = false;
-    
-    public void wind() {
+    public void wind(){
+    	wind(1);
+    }
+    public void wind(double speed) {
         if (!Sensor.LimitSwitches.CHOOCHOO.get() || firing) {
-            Motors.CHOOCHOO.set(1);
+            Motors.CHOOCHOO.set(speed);
         } else {
             Motors.CHOOCHOO.set(0);
         }

@@ -34,30 +34,33 @@ public class Robot extends SampleRobot {
         	//Set the drive speed to base of 0.5, and ramp it up with the right trigger
         	drive.multiplier = oi.getDrive(Axis.RT) * 0.5 + 0.5;
         	//Arcade drive with these values.
-            drive.driveArcade(-oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));       
+            drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));       
             //wind the bloody choochoo. Actually, at the torque that thing has, it could very well draw blood.
             choochoo.wind();
             //TODO: Set the arm joints to the control board values. These should be hardcoded in the OI, but too lazy to change rn
             arm.set(oi.getControlBoard(Axis.ARM) - 10.546875, oi.getControlBoard(Axis.ELBOW) - 4.21875);
-
             
             
                         // input change 0 -> 180 to 0 -> 1
-            pickup.set(oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
+            pickup.set(1-oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
 
-            if (oi.getOperator(OI.Button.A)) choochoo.fire();
+            if (oi.getDrive(OI.Button.A)) choochoo.fire();
             // ability to manually zero arms would be nice
         }
     }
-    
+    public void test(){
+    	while(isTest() && isEnabled()){
+    		choochoo.wind();
+    		if (oi.getDrive(OI.Button.A)) choochoo.fire();
+    	}
+    }
     
     public void autonomous() {
-    	int forward = 5;
-    	int backward = -4;
+    	double timeToStop = 4;
     	Timer timer = new Timer();
     	while (isAutonomous() && !isDisabled()) {
     		pickup.set(1);
-    		if (!timer.hasPeriodPassed(forward+backward)) {
+    		if (!timer.hasPeriodPassed(timeToStop)) {
     			drive.driveTank(-0.5, -0.5);
     		}
     		else {

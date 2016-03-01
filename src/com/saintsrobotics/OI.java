@@ -44,12 +44,12 @@ public class OI {
 
     private Joystick driveStick;
     private Joystick controlBoard;
-    private Joystick operatorStick; // we'll likely get rid of this
+    //private Joystick operatorStick; // we'll likely get rid of this
 
     public OI() {
         driveStick = new Joystick(0);
         controlBoard = new Joystick(1);
-        operatorStick = new Joystick(2);
+        //operatorStick = new Joystick(2);
     }
 
     public boolean getDrive(Button button) {
@@ -64,12 +64,12 @@ public class OI {
         return (controlBoard.getRawAxis(axis.rawIndex)+1)/2*270;
     }
 
-    public boolean getOperator(Button button) {
+    /*public boolean getOperator(Button button) {
         return operatorStick.getRawButton(button.rawIndex);
     }
 
     public double getOperator(Axis axis) {
         return operatorStick.getRawAxis(axis.rawIndex);
-    }
+    }*/
 
 }
