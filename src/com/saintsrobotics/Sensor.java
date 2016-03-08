@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 public class Sensor {
 
     public enum Encoders {
-        PICKUP(0, false, 1, 71, 0d),
-        WINCH(4, false, 7, 188, 0d),
-        ARM(2, false, 7, 71, 0d);
+        PICKUP(0, false, 1, 71, 0d);
 
         private Encoder encoder;
 
@@ -19,7 +17,7 @@ public class Sensor {
         }
 
         Encoders(int pin, boolean inverted, double distancePerPulse, double minRate) {
-            encoder = new Encoder(pin, pin + 1, inverted, CounterBase.EncodingType.k2X);
+        	encoder = new Encoder(pin, pin+1, inverted);
             encoder.setDistancePerPulse(1 / distancePerPulse);
             encoder.setMinRate(minRate);
             encoder.setSamplesToAverage(10);
@@ -34,10 +32,10 @@ public class Sensor {
         }
     }
 
-    public enum Potentiometer {
+     public enum Potentiometer {
 
-        ARM(1, 270, -67.3),
-        ELBOW(0, 270, -7);
+        ELBOW(1, 270, -2.6857),
+        ARM(0, 270, -14.7425);
 
         private AnalogPotentiometer pot;
 

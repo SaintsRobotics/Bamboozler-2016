@@ -23,15 +23,17 @@ public class DriveSubsystem {
     public void driveArcade(double speed, double turn) {
         speed *= multiplier;
         turn *= turnMultiplier;
-        drive(speed + turn, speed - turn);
+        drive(speed - turn, speed + turn);
     }
     public void driveTank(double left, double right){
     	drive(multiplier * left, multiplier * right);
     }
     private void drive(double left, double right) {
-        Motors.DRIVE_LEFT_1.set(left);
-        Motors.DRIVE_LEFT_2.set(right);
-        Motors.DRIVE_RIGHT_1.set(left);
+    	Motors.DRIVE_LEFT_1.set(left);
+    	Motors.DRIVE_LEFT_2.set(left);        
+        Motors.DRIVE_LEFT_3.set(left);
+        Motors.DRIVE_RIGHT_1.set(right);
         Motors.DRIVE_RIGHT_2.set(right);
+        Motors.DRIVE_RIGHT_3.set(right);
     }
 }
