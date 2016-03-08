@@ -38,7 +38,6 @@ public class Robot extends SampleRobot {
     	}
         while (isOperatorControl() && isEnabled()) {
         	//Set the drive speed to base of 0.5, and ramp it up with the right trigger
-        	//drive.multiplier = oi.getDrive(Axis.RT) * 0.5 + 0.5;
         	//Arcade drive with these values.
             drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
             //wind the bloody choochoo. Actually, at the torque that thing has, it could very well draw blood.
