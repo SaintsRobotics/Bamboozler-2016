@@ -52,7 +52,8 @@ public class Robot extends SampleRobot {
     }
     public void test(){
     	while(isTest() && isEnabled()){
-    		arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
+    		//arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
+    		Motors.ARM_AXLE.set(1);
     	}
     }
     
