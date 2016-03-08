@@ -52,14 +52,14 @@ public class Robot extends SampleRobot {
     }
     public void test(){
     	while(isTest() && isEnabled()){
-            drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
+    		arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
     	}
     }
     
     public void autonomous() {
-    	/*gggg
-    	double timeToStopgggggg = 7;
-    	Timer timer = negw Timer();
+    	/*
+    	double timeToStop = 7;
+    	Timer timer = new Timer();
     	while (isAutonomous() && !isDisabled()) {
     			pickup.set(1);
     			if (!timer.hasPeriodPassed(timeToStop)) {
