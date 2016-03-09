@@ -59,8 +59,9 @@ public class OI {
     public double getDrive(Axis axis) {
         return driveStick.getRawAxis(axis.rawIndex);
     }
-    
+
     public double getControlBoard(Axis axis) {
+        // scale [-1, 1] to [0, 270]
         return ((controlBoard.getRawAxis(axis.rawIndex)+1)/2)*270;
     }
 

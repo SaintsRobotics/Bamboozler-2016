@@ -6,13 +6,14 @@ import com.saintsrobotics.Sensor;
 import edu.wpi.first.wpilibj.Timer;
 
 public class ChooChooSubsystem {
-    //Timer to only time winding
+
     private Timer timer = new Timer();
-    //Are we firing? this variable tells us. If it isn't lying.
     private boolean firing = false;
-    public void wind(){
-    	wind(1);
+
+    public void wind() {
+        wind(1);
     }
+
     public void wind(double speed) {
         if (!Sensor.LimitSwitches.CHOOCHOO.get() || firing) {
             Robot.MOTORS.CHOOCHOO().set(speed);

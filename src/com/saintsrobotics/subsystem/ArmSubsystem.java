@@ -16,12 +16,7 @@ public class ArmSubsystem {
     public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);
         armPos = Math.max(armPos, 0);
-        
-        /*if(calcDistance(armPos, elbowPos, 29.0) > 15.0){
-        	Motors.ARM_AXLE.set(0);
-        	Motors.ARM_WINCH.set(0);
-        	return;
-        }*/
+
         double armVal = armPid.compute(Sensor.Potentiometer.ARM.get(), armPos);
         double elbowVal = elbowPid.compute(Sensor.Potentiometer.ELBOW.get(), elbowPos);
         Robot.MOTORS.ARM_AXLE().set(armVal);
@@ -30,8 +25,8 @@ public class ArmSubsystem {
         log.log(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
     }
     public double calcDistance(double axle, double winch, double length){
-    	winch = Math.toRadians(Math.abs(axle-winch));
-    	axle = Math.toRadians(axle);
-    	return (Math.cos(winch) - Math.cos(axle)) * length;
+        winch = Math.toRadians(Math.abs(axle-winch));
+        axle = Math.toRadians(axle);
+        return (Math.cos(winch) - Math.cos(axle)) * length;
     }
 }
