@@ -2,8 +2,8 @@ package com.saintsrobotics.subsystem;
 
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
-import com.saintsrobotics.util.ContinuousLog;
 import com.saintsrobotics.util.PID;
+import com.saintsrobotics.util.logging.ContinuousLog;
 
 
 public class ArmSubsystem {
@@ -11,7 +11,7 @@ public class ArmSubsystem {
     public PID elbowPid = new PID(1, 0, 0);
     public PID armPid = new PID(0.01, 0, 0);
     
-    ContinuousLog log = new ContinuousLog();
+    ContinuousLogObject log = new ContinuousLog();
 
     public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);

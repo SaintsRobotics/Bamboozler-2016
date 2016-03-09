@@ -2,8 +2,8 @@ package com.saintsrobotics.subsystem;
 
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
-import com.saintsrobotics.util.ContinuousLog;
 import com.saintsrobotics.util.PID;
+import com.saintsrobotics.util.logging.ContinuousLog;
 
 public class PickupSubsystem {
 

@@ -19,7 +19,7 @@ public class CircularQueue<T>{
 			last = null;
 		}else{
 			last.next = current.next;
-			current = current.next;
+			current = last;
 		}
 	}
 	public void add(T object){

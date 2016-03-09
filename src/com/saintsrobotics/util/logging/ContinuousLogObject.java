@@ -1,4 +1,4 @@
-package com.saintsrobotics.util;
+package com.saintsrobotics.util.logging;
 
 public interface ContinuousLogObject {
 	public String getLogString();
