@@ -8,6 +8,8 @@ import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
 import com.saintsrobotics.subsystem.PickupSubsystem;
 import com.saintsrobotics.util.ContinuousLog;
+import com.saintsrobotics.OI.Button;
+import com.saintsrobotics.OI.Axis;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -31,11 +33,11 @@ public class Robot extends SampleRobot {
 //            choochoo.wind();
 
             // values are in degrees
-//            arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
+            arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
 
             // input change 0 -> 180 to 0 -> 1
-//            pickup.set(1-oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
-//            if (oi.getOperator(OI.Button.A)) choochoo.fire();
+            pickup.set(1-oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
+            if (oi.getOperator(OI.Button.A)) choochoo.fire();
         }
     }
 
