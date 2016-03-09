@@ -1,6 +1,6 @@
 package com.saintsrobotics.util.logging;
 
-public class TimeSkipLogger implements ContinuousLogObject {
+public class TimeIntervalLogger implements ContinuousLogObject {
 	public long hitTime = 0;
 	public boolean delete = false;
 	
@@ -8,11 +8,11 @@ public class TimeSkipLogger implements ContinuousLogObject {
 	private String value;
 	private long secToNano(double sec){return (long)(sec * 1000000000);}
 	
-	public TimeSkipLogger(double intervalTime){
+	public TimeIntervalLogger(double intervalTime){
 		this.intervalTime = secToNano(intervalTime);
 		hitTime = System.nanoTime() + this.intervalTime;
 	}
-	public TimeSkipLogger(double intervalTime, double firstDelay){
+	public TimeIntervalLogger(double intervalTime, double firstDelay){
 		this.intervalTime = secToNano(intervalTime) ;
 		hitTime = System.nanoTime() + secToNano(firstDelay);
 	}

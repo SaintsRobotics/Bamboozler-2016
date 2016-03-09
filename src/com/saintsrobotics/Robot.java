@@ -25,7 +25,7 @@ public class Robot extends SampleRobot {
     ChooChooSubsystem choochoo = new ChooChooSubsystem();
     CameraSubsystem camera = new CameraSubsystem();
     
-    ContinuousLog log = new ContinuousLog();
+    public static ContinuousLog log = new ContinuousLog();
 
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
@@ -34,7 +34,7 @@ public class Robot extends SampleRobot {
 
             // values are in degrees
             arm.set(oi.getControlBoard(Axis.ARM), oi.getControlBoard(Axis.ELBOW));
-
+            
             // input change 0 -> 180 to 0 -> 1
             pickup.set(1-oi.getControlBoard(Axis.CONTROL_BOARD_KNOB)/182);
             if (oi.getOperator(OI.Button.A)) choochoo.fire();
@@ -42,6 +42,7 @@ public class Robot extends SampleRobot {
     }
 
     public void test(){
+    	log.runLog();
     	int cnt = 0;
     	int val = 4000;
     	while(isTest() && isEnabled()) {
