@@ -14,9 +14,6 @@ public class ArmSubsystem {
     public PID armPid = new PID(0.01, 0, 0);
     
     TimeIntervalLogger log = new TimeIntervalLogger(1);
-    public ArmSubsystem(){
-    	Robot.log.logContinuous(log);
-    }
     public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);
         armPos = Math.max(armPos, 0);
