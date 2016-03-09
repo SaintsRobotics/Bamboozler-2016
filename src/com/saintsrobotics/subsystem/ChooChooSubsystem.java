@@ -1,6 +1,6 @@
 package com.saintsrobotics.subsystem;
 
-import com.saintsrobotics.Motors;
+import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -15,9 +15,9 @@ public class ChooChooSubsystem {
     }
     public void wind(double speed) {
         if (!Sensor.LimitSwitches.CHOOCHOO.get() || firing) {
-            Motors.CHOOCHOO.set(speed);
+            Robot.MOTORS.CHOOCHOO().set(speed);
         } else {
-            Motors.CHOOCHOO.set(0);
+            Robot.MOTORS.CHOOCHOO().set(0);
         }
         if (timer.hasPeriodPassed(0.5)) {
             firing = false;

@@ -1,17 +1,17 @@
 package com.saintsrobotics.subsystem;
 
-import com.saintsrobotics.Motors;
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
+import com.saintsrobotics.util.ContinuousLog;
 import com.saintsrobotics.util.PID;
 
 
 public class ArmSubsystem {
 
     public PID elbowPid = new PID(1, 0, 0);
-    public PID armPid = new PID(0.01, 0, 0); //0.04
+    public PID armPid = new PID(0.01, 0, 0);
     
-    int cnt;
+    ContinuousLog log = new ContinuousLog();
 
     public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);
@@ -24,12 +24,10 @@ public class ArmSubsystem {
         }*/
         double armVal = armPid.compute(Sensor.Potentiometer.ARM.get(), armPos);
         double elbowVal = elbowPid.compute(Sensor.Potentiometer.ELBOW.get(), elbowPos);
-        Motors.ARM_AXLE.set(armVal);
-        Motors.ARM_WINCH.set(elbowVal);
+        Robot.MOTORS.ARM_AXLE().set(armVal);
+        Robot.MOTORS.ARM_WINCH().set(elbowVal);
         
-        if (Robot.debug && cnt++ % 400 == 0) {
-            Robot.log(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
-        }
+        log.log(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
     }
     public double calcDistance(double axle, double winch, double length){
     	winch = Math.toRadians(Math.abs(axle-winch));

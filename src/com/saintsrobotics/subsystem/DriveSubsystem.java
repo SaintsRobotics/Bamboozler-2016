@@ -1,6 +1,6 @@
 package com.saintsrobotics.subsystem;
 
-import com.saintsrobotics.Motors;
+import com.saintsrobotics.Robot;
 
 public class DriveSubsystem {
 	//Base speed multiplier
@@ -29,11 +29,11 @@ public class DriveSubsystem {
     	drive(multiplier * left, multiplier * right);
     }
     private void drive(double left, double right) {
-    	Motors.DRIVE_LEFT_1.set(left);
-    	Motors.DRIVE_LEFT_2.set(left);        
-        Motors.DRIVE_LEFT_3.set(left);
-        Motors.DRIVE_RIGHT_1.set(right);
-        Motors.DRIVE_RIGHT_2.set(right);
-        Motors.DRIVE_RIGHT_3.set(right);
+    	Robot.MOTORS.DRIVE_LEFT_1().set(left);
+    	Robot.MOTORS.DRIVE_LEFT_2().set(left);
+        Robot.MOTORS.DRIVE_LEFT_3().set(left);
+        Robot.MOTORS.DRIVE_RIGHT_1().set(right);
+        Robot.MOTORS.DRIVE_RIGHT_2().set(right);
+        Robot.MOTORS.DRIVE_RIGHT_3().set(right);
     }
 }
