@@ -39,12 +39,12 @@ public class Robot extends SampleRobot {
     public void test(){
     	int cnt = 0;
     	while(isTest() && isEnabled()) {
-    		MOTORS.DRIVE_LEFT_1().set(0);
-    		MOTORS.DRIVE_LEFT_2().set(0);
-    		MOTORS.DRIVE_LEFT_3().set(0);
-    		MOTORS.DRIVE_RIGHT_1().set(0);
-    		MOTORS.DRIVE_RIGHT_2().set(0);
-    		MOTORS.DRIVE_RIGHT_3().set(0);
+    		if (cnt++/200 % 6 != 0) MOTORS.DRIVE_LEFT_1().set(0);
+    		if (cnt++/200 % 6 != 1) MOTORS.DRIVE_LEFT_2().set(0);
+    		if (cnt++/200 % 6 != 2) MOTORS.DRIVE_LEFT_3().set(0);
+    		if (cnt++/200 % 6 != 3) MOTORS.DRIVE_RIGHT_1().set(0);
+    		if (cnt++/200 % 6 != 4) MOTORS.DRIVE_RIGHT_2().set(0);
+    		if (cnt++/200 % 6 != 5) MOTORS.DRIVE_RIGHT_3().set(0);
 
     		switch (cnt++/200 % 6) {
                 case 0: MOTORS.DRIVE_LEFT_1().set(0.2); break;
