@@ -57,7 +57,9 @@ public class OI {
     }
 
     public double getDrive(Axis axis) {
-        return driveStick.getRawAxis(axis.rawIndex);
+        double val = driveStick.getRawAxis(axis.rawIndex);
+        if (Math.abs(val) < 0.13) val = 0;
+        return val;
     }
     
     public double getControlBoard(Axis axis) {

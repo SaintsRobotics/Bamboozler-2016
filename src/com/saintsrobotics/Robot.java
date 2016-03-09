@@ -7,6 +7,7 @@ import com.saintsrobotics.subsystem.CameraSubsystem;
 import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
 import com.saintsrobotics.subsystem.PickupSubsystem;
+import com.saintsrobotics.util.ContinuousLog;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -21,6 +22,8 @@ public class Robot extends SampleRobot {
     ArmSubsystem arm = new ArmSubsystem();
     ChooChooSubsystem choochoo = new ChooChooSubsystem();
     CameraSubsystem camera = new CameraSubsystem();
+    
+    ContinuousLog log = new ContinuousLog();
 
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
@@ -38,23 +41,24 @@ public class Robot extends SampleRobot {
 
     public void test(){
     	int cnt = 0;
+    	int val = 4000;
     	while(isTest() && isEnabled()) {
-    		if (cnt++/200 % 6 != 0) MOTORS.DRIVE_LEFT_1().set(0);
-    		if (cnt++/200 % 6 != 1) MOTORS.DRIVE_LEFT_2().set(0);
-    		if (cnt++/200 % 6 != 2) MOTORS.DRIVE_LEFT_3().set(0);
-    		if (cnt++/200 % 6 != 3) MOTORS.DRIVE_RIGHT_1().set(0);
-    		if (cnt++/200 % 6 != 4) MOTORS.DRIVE_RIGHT_2().set(0);
-    		if (cnt++/200 % 6 != 5) MOTORS.DRIVE_RIGHT_3().set(0);
+    		cnt++;
+    		if (cnt/val % 6 != 0) MOTORS.DRIVE_LEFT_1().set(0);
+    		if (cnt/val % 6 != 1) MOTORS.DRIVE_LEFT_2().set(0);
+    		if (cnt/val % 6 != 2) MOTORS.DRIVE_LEFT_3().set(0);
+    		if (cnt/val % 6 != 3) MOTORS.DRIVE_RIGHT_1().set(0);
+    		if (cnt/val % 6 != 4) MOTORS.DRIVE_RIGHT_2().set(0);
+    		if (cnt/val % 6 != 5) MOTORS.DRIVE_RIGHT_3().set(0);
 
-    		switch (cnt++/200 % 6) {
-                case 0: MOTORS.DRIVE_LEFT_1().set(0.2); break;
-                case 1: MOTORS.DRIVE_LEFT_2().set(0.2); break;
-                case 2: MOTORS.DRIVE_LEFT_3().set(0.2); break;
-                case 3: MOTORS.DRIVE_RIGHT_1().set(0.2); break;
-                case 4: MOTORS.DRIVE_RIGHT_2().set(0.2); break;
-                case 5: MOTORS.DRIVE_RIGHT_3().set(0.2); break;
+    		switch (cnt/val % 6) {
+                case 0: MOTORS.DRIVE_LEFT_1().set(1); break;
+                case 1: MOTORS.DRIVE_LEFT_2().set(1); break;
+                case 2: MOTORS.DRIVE_LEFT_3().set(1); break;
+                case 3: MOTORS.DRIVE_RIGHT_1().set(1); break;
+                case 4: MOTORS.DRIVE_RIGHT_2().set(1); break;
+                case 5: MOTORS.DRIVE_RIGHT_3().set(1); break;
     		}
-    		if (cnt > 1400) cnt = 0;
     	}
     }
 
