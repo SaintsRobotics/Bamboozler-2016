@@ -2,7 +2,7 @@ package com.saintsrobotics.motors;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class MotorsComp implements Motors {
+public class MotorsComp extends Motors {
 
     public Motor DRIVE_LEFT_1()  { return new Motor(new Talon(12), true ); }
     public Motor DRIVE_LEFT_2()  { return new Motor(new Talon( 6), true ); }
