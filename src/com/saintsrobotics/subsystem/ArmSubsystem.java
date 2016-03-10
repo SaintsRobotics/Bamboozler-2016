@@ -3,7 +3,7 @@ package com.saintsrobotics.subsystem;
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
 import com.saintsrobotics.util.PID;
-import com.saintsrobotics.util.logging.TimeIntervalLogger;
+import com.saintsrobotics.util.logging.Logger;
 
 
 public class ArmSubsystem {
@@ -11,7 +11,7 @@ public class ArmSubsystem {
     public PID elbowPid = new PID(1, 0, 0);
     public PID armPid = new PID(0.01, 0, 0);
     
-    TimeIntervalLogger log = new TimeIntervalLogger(1);
+    Logger log = new Logger(500);
 
     public void set(double armPos, double elbowPos) {                                                                                                                                                                                                                                                                                                                        
         elbowPos = Math.max(elbowPos, 0);
@@ -22,7 +22,7 @@ public class ArmSubsystem {
         Robot.MOTORS.ARM_AXLE().set(armVal);
         Robot.MOTORS.ARM_WINCH().set(elbowVal);
         
-        log.setValue(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
+        log.m(elbowVal + " " + Sensor.Potentiometer.ELBOW.get() + " " + elbowPos);
     }
 
     public double calcDistance(double axle, double winch, double length){

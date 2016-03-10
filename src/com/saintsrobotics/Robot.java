@@ -6,7 +6,6 @@ import com.saintsrobotics.subsystem.ArmSubsystem;
 import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
 import com.saintsrobotics.subsystem.PickupSubsystem;
-import com.saintsrobotics.util.logging.ContinuousLog;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -23,8 +22,6 @@ public class Robot extends SampleRobot {
     ArmSubsystem arm = new ArmSubsystem();
     ChooChooSubsystem choochoo = new ChooChooSubsystem();
     
-    public static ContinuousLog log = new ContinuousLog();
-
     public void operatorControl() {
         CameraServer.getInstance().startAutomaticCapture();
         while (isOperatorControl() && isEnabled()) {

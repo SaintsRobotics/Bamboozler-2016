@@ -4,7 +4,7 @@ import com.saintsrobotics.Constants;
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
 import com.saintsrobotics.util.PID;
-import com.saintsrobotics.util.logging.TimeIntervalLogger;
+import com.saintsrobotics.util.logging.Logger;
 
 public class PickupSubsystem {
 
@@ -12,7 +12,7 @@ public class PickupSubsystem {
     private boolean set = false;
     private PID pickupPid = new PID(20, 0, 0);
 
-    TimeIntervalLogger log = new TimeIntervalLogger(1);
+    Logger log = new Logger(500);
 
     public boolean isSet() {
         return set;
@@ -27,7 +27,7 @@ public class PickupSubsystem {
             set = true;
         }
         
-        log.setValue("pos: " + pos +"\nSet : " + set);
+        log.m("pos: " + pos +"\nSet : " + set);
 
         if (set) {
             double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/Constants.PICKUP_ENCODER_RANGE, pos);
