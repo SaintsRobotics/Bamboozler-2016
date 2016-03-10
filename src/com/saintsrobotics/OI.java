@@ -61,8 +61,9 @@ public class OI {
         if (Math.abs(val) < 0.13) val = 0;
         return val;
     }
-    
+
     public double getControlBoard(Axis axis) {
+        // scale [-1, 1] to [0, 270]
         return ((controlBoard.getRawAxis(axis.rawIndex)+1)/2)*270;
     }
 
