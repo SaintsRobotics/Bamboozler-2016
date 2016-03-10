@@ -1,7 +1,7 @@
 package com.saintsrobotics;
 
 import com.saintsrobotics.motors.Motors;
-import com.saintsrobotics.motors.MotorsPractice;
+import com.saintsrobotics.motors.MotorsComp;
 import com.saintsrobotics.subsystem.ArmSubsystem;
 import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
@@ -10,11 +10,10 @@ import com.saintsrobotics.subsystem.PickupSubsystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends SampleRobot {
 
-    public static final Motors MOTORS = new MotorsPractice();
+    public static final Motors MOTORS = new MotorsComp();
 
     OI oi = new OI();
     DriveSubsystem drive = new DriveSubsystem();
@@ -25,14 +24,14 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
         CameraServer.getInstance().startAutomaticCapture();
         while (isOperatorControl() && isEnabled()) {
-            drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
-            choochoo.wind();
+//            drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
+//            choochoo.wind();
 
             // values are in degrees
             arm.set(oi.getControlBoard(OI.Axis.ARM), oi.getControlBoard(OI.Axis.ELBOW));
 
             // input change 0 -> 180 to 0 -> 1
-            pickup.set(1-oi.getControlBoard(OI.Axis.CONTROL_BOARD_KNOB)/182);
+//            pickup.set(1-oi.getControlBoard(OI.Axis.CONTROL_BOARD_KNOB)/182);
 //            if (oi.getOperator(OI.Button.A)) choochoo.fire();
         }
     }
@@ -51,15 +50,24 @@ public class Robot extends SampleRobot {
         }
     }
 
+    @Override
+    protected void disabled() {
+//        LiveWindow.setEnabled(false);
+    }
+
     public void test() {
-        LiveWindow.setEnabled(true);
-        LiveWindow.run();
-        LiveWindow.addSensor("Pickup", "Encoder", Sensor.Encoders.PICKUP.getRaw());
+//        LiveWindow.setEnabled(true);
+//        LiveWindow.run();
+//        LiveWindow.addSensor("Pickup", "Encoder", Sensor.Encoders.PICKUP.getRaw());
+//        LiveWindow.addSensor("Potentiometer", "Arm", Sensor.Potentiometer.ARM.getRaw());
+//        LiveWindow.addSensor("Potentiometer", "Elbow", Sensor.Potentiometer.ELBOW.getRaw());
         for (int cnt = 0; isTest() && isEnabled(); cnt++) {
-            testDriveMotors(cnt, 1000);
-            testPickupMotor(cnt);
+//            testDriveMotors(cnt, 1000);
+//            testPickupMotor(cnt);
             // Afterwards check the encoder on the LiveWindow and manually calculate the end position.
 //            testPickup();
+            MOTORS.ARM_WINCH().set(-1);
+//            MOTORS.ARM_WINCH().set(0.2);
         }
     }
 

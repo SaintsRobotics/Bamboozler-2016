@@ -50,7 +50,11 @@ public class Sensor {
         public double get() {
             return pot.get();
         }
-    }
+
+         public LiveWindowSendable getRaw() {
+             return pot;
+         }
+     }
 
     public enum LimitSwitches {
         
