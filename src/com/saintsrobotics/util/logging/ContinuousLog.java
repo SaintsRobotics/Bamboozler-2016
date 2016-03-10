@@ -2,25 +2,24 @@ package com.saintsrobotics.util.logging;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
-
-import com.saintsrobotics.util.CircularQueue;
+import java.util.List;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class ContinuousLog {
-	
-    private CircularQueue<ContinuousLogObject> logs = new CircularQueue<>();
-    
-    //Loop through all the logging objects in the queue, and check if they need to be logged/removed
-    public void runLog(){
-    	ContinuousLogObject logger = logs.next();
-    	if(logger == null) return;
-    	if(logger.wantToLog()) DriverStation.reportError(logger.getLogString(), false);
-    	if(logger.delete()) logs.remove();
+
+    private List<ContinuousLogObject> logs = new LinkedList<>();
+
+    // Loop through all the logging objects in the queue, and check if they need to be logged/removed
+    public void runLog() {
+        for (Iterator<ContinuousLogObject> iterator = logs.iterator(); iterator.hasNext(); ) {
+            ContinuousLogObject msg = iterator.next();
+            if (msg.isLogging()) DriverStation.reportError(msg.getMessage(), false);
+            if (msg.remove()) iterator.remove();
+        }
     }
-    //add a logger to the queue.
-    public void logContinuous(ContinuousLogObject obj){
-    	logs.add(obj);
+
+    public void logContinuous(ContinuousLogObject obj) {
+        logs.add(obj);
     }
 }

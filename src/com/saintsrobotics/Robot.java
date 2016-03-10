@@ -7,8 +7,6 @@ import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
 import com.saintsrobotics.subsystem.PickupSubsystem;
 import com.saintsrobotics.util.logging.ContinuousLog;
-import com.saintsrobotics.OI.Button;
-import com.saintsrobotics.OI.Axis;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;

@@ -4,7 +4,6 @@ import com.saintsrobotics.Constants;
 import com.saintsrobotics.Robot;
 import com.saintsrobotics.Sensor;
 import com.saintsrobotics.util.PID;
-import com.saintsrobotics.util.logging.ContinuousLog;
 import com.saintsrobotics.util.logging.TimeIntervalLogger;
 
 public class PickupSubsystem {
@@ -32,9 +31,9 @@ public class PickupSubsystem {
 
         if (set) {
             double val = pickupPid.compute(Sensor.Encoders.PICKUP.get()/Constants.PICKUP_ENCODER_RANGE, pos);
-            //log.log("[ " + ((int)(val*1000))/1000d
-            //        + " " + Sensor.Encoders.PICKUP.get()
-            //        + " " + (int)(pos*1000)/1000d);
+//            log.log("[ " + ((int)(val*1000))/1000d
+//                    + " " + Sensor.Encoders.PICKUP.get()
+//                    + " " + (int)(pos*1000)/1000d);
             Robot.MOTORS.PICKUP().set(val);
         } else {
             Robot.MOTORS.PICKUP().set(0.2);
