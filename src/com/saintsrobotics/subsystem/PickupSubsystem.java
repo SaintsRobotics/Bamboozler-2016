@@ -21,6 +21,7 @@ public class PickupSubsystem {
     // Encoder: 0 -> -10.2, full up -> full down
     public void set(double pos) {
         if (pos > 1) pos = 1;
+        if (pos < 0) pos = 0;
 
         if (Sensor.LimitSwitches.PICKUP.get()) {
             Sensor.Encoders.PICKUP.zero();

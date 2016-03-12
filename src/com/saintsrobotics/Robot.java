@@ -6,6 +6,7 @@ import com.saintsrobotics.subsystem.ArmSubsystem;
 import com.saintsrobotics.subsystem.ChooChooSubsystem;
 import com.saintsrobotics.subsystem.DriveSubsystem;
 import com.saintsrobotics.subsystem.PickupSubsystem;
+import com.saintsrobotics.util.logging.Logger;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -22,16 +23,16 @@ public class Robot extends SampleRobot {
     ChooChooSubsystem choochoo = new ChooChooSubsystem();
     
     public void operatorControl() {
-        CameraServer.getInstance().startAutomaticCapture();
+//        CameraServer.getInstance().startAutomaticCapture();
         while (isOperatorControl() && isEnabled()) {
-//            drive.driveArcade(oi.getDrive(OI.Axis.LY), oi.getDrive(OI.Axis.RX));
+//            drive.driveArcade(-oi.getDrive(OI.Axis.LY), -oi.getDrive(OI.Axis.RX));
 //            choochoo.wind();
 
             // values are in degrees
-            arm.set(oi.getControlBoard(OI.Axis.ARM), oi.getControlBoard(OI.Axis.ELBOW));
+//            arm.set(oi.getControlBoard(OI.Axis.ARM), oi.getControlBoard(OI.Axis.ELBOW));
 
             // input change 0 -> 180 to 0 -> 1
-//            pickup.set(1-oi.getControlBoard(OI.Axis.CONTROL_BOARD_KNOB)/182);
+            pickup.set(1-oi.getControlBoard(OI.Axis.CONTROL_BOARD_KNOB)/182);
 //            if (oi.getOperator(OI.Button.A)) choochoo.fire();
         }
     }
@@ -54,6 +55,8 @@ public class Robot extends SampleRobot {
     protected void disabled() {
 //        LiveWindow.setEnabled(false);
     }
+    
+    Logger log = new Logger(500);
 
     public void test() {
 //        LiveWindow.setEnabled(true);
@@ -62,13 +65,22 @@ public class Robot extends SampleRobot {
 //        LiveWindow.addSensor("Potentiometer", "Arm", Sensor.Potentiometer.ARM.getRaw());
 //        LiveWindow.addSensor("Potentiometer", "Elbow", Sensor.Potentiometer.ELBOW.getRaw());
         for (int cnt = 0; isTest() && isEnabled(); cnt++) {
-//            testDriveMotors(cnt, 1000);
+//        	log.m(prettify(Sensor.Potentiometer.ARM.get()),
+//        			prettify(Sensor.Potentiometer.ELBOW.get()),
+//        			prettify(Sensor.Encoders.PICKUP.getRaw()));
+//            testDriveMotors(cnt, 3000);
+            log.m(Sensor.Encoders.PICKUP.get());
+            // Motors.PICKUP().set(0.1);
 //            testPickupMotor(cnt);
             // Afterwards check the encoder on the LiveWindow and manually calculate the end position.
 //            testPickup();
-            MOTORS.ARM_WINCH().set(-1);
+//            MOTORS.ARM_WINCH().set(-1);
 //            MOTORS.ARM_WINCH().set(0.2);
         }
+    }
+    
+    String prettify(double d) {
+    	return Double.toString(((int)(d*1000))/1000.0);
     }
 
     /**
@@ -101,12 +113,12 @@ public class Robot extends SampleRobot {
         if (cnt/timeEach % 6 != 5) MOTORS.DRIVE_RIGHT_3().set(0);
 
         switch (cnt/timeEach % 6) {
-            case 0: MOTORS.DRIVE_LEFT_1().set(0.2); break;
-            case 1: MOTORS.DRIVE_LEFT_2().set(0.2); break;
-            case 2: MOTORS.DRIVE_LEFT_3().set(0.2); break;
-            case 3: MOTORS.DRIVE_RIGHT_1().set(0.2); break;
-            case 4: MOTORS.DRIVE_RIGHT_2().set(0.2); break;
-            case 5: MOTORS.DRIVE_RIGHT_3().set(0.2); break;
+            case 0: MOTORS.DRIVE_LEFT_1().set(0.35); break;
+            case 1: MOTORS.DRIVE_LEFT_2().set(0.35); break;
+            case 2: MOTORS.DRIVE_LEFT_3().set(0.35); break;
+            case 3: MOTORS.DRIVE_RIGHT_1().set(0.35); break;
+            case 4: MOTORS.DRIVE_RIGHT_2().set(0.35); break;
+            case 5: MOTORS.DRIVE_RIGHT_3().set(0.35); break;
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.saintsrobotics.motors;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
 public abstract class Motors {
@@ -16,11 +17,11 @@ public abstract class Motors {
     public abstract Motor ARM_WINCH();
     public abstract Motor CHOOCHOO();
 
-    Motor[] motors = new Motor[8];
+    Motor[] motors = new Motor[10];
 
     public Motor getMotor(int pin, boolean inverted) {
         if (motors[pin] == null) {
-            motors[pin] = new Motor(new Victor(pin), inverted);
+            motors[pin] = new Motor(new Talon(pin), inverted);
         }
         return motors[pin];
     }

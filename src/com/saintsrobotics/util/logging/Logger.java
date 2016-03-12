@@ -10,13 +10,23 @@ public class Logger {
 
     public Logger(int millis) {
         this.millis = millis;
-        timer.start();
+        start();
+    }
+    
+    public void start() {
+    	timer.stop();
+    	timer.reset();
+    	timer.start();
     }
 
-    public void m(Object o) {
-        if (o == null) return;
+    public void m(Object... os) {
+        if (os == null || os.length == 0) return;
         if (timer.hasPeriodPassed(millis/1000.0)) {
-            DriverStation.reportError(o.toString(), false);
+        	StringBuilder sb = new StringBuilder(os[0].toString());
+        	for (int i=1; i<os.length; i++) {
+        		sb.append(", ").append(os[i]);
+        	}
+            DriverStation.reportError(sb.toString(), false);
         }
     }
 }
